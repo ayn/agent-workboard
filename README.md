@@ -108,9 +108,12 @@ The browser needs access only to the hub; it does not contact the producers.
 python3 workboard.py --sources /path/to/private/sources.json --title "My Workspaces"
 ```
 
-The hub renders workspace tabs. If a producer goes offline, its last known
+The hub renders an underlined tab bar when there are multiple workspaces; with
+only one workspace, the extra navigation is hidden. If a producer goes offline, its last known
 snapshot stays visible with an unavailable warning; the other tabs keep working.
 Use `--include-local` to include the hub's own state as a tab as well.
+
+![Fictional workspaces with an offline producer](docs/workspaces.png)
 
 Inside containers, `127.0.0.1` means **that container**. Use reachable container
 network names, a host gateway, or published host ports in the real config. Each
@@ -126,6 +129,11 @@ always returns that instance's **local** state, preventing nested hubs from
 recursively fetching one another. If the hub container stops, the combined view
 stops too; run the hub on a more persistent host if you need it independent of
 development containers.
+
+For links in remote workspaces, use explicit absolute browser-facing URLs.
+The hub omits producer-relative links such as `/preview` so they cannot
+accidentally open the hub's own workspace preview. Local links still work in a
+producer's standalone view. The hub does not proxy remote private files.
 
 ## Custom cards and integrations
 

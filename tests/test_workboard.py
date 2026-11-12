@@ -148,6 +148,16 @@ class HTTPTests(unittest.TestCase):
             with patch("workboard.fetch_source") as fetch:
                 self.assertIn("warning", hub.snapshot()); fetch.assert_not_called()
 
+    def test_remote_relative_links_cannot_route_to_the_hubs_local_workspace(self):
+        self.state["tasks"][0]["url"] = "/preview"
+        self.state["links"] = [{"label": "Remote preview", "url": "/preview"},
+                               {"label": "Project", "url": "https://example.com/project"}]
+        url = "http://%s:%s/api/status" % self.server.server_address
+        remote = workboard.fetch_source(url)
+        self.assertNotIn("url", remote["tasks"][0])
+        self.assertEqual(remote["links"], [{"label": "Project", "url": "https://example.com/project"}])
+        self.assertEqual(self.board.local_snapshot()["tasks"][0]["url"], "/preview")
+
 
 class StreamTests(unittest.TestCase):
     def test_changes_and_heartbeats_without_clock_only_updates(self):
