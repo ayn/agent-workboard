@@ -127,6 +127,11 @@ recursively fetching one another. If the hub container stops, the combined view
 stops too; run the hub on a more persistent host if you need it independent of
 development containers.
 
+For links in remote workspaces, use explicit absolute browser-facing URLs.
+The hub omits producer-relative links such as `/preview` so they cannot
+accidentally open the hub's own workspace preview. Local links still work in a
+producer's standalone view. The hub does not proxy remote private files.
+
 ## Custom cards and integrations
 
 Add optional `cards` and `links` to `tasks.json`; see [the JSON contract](docs/state-format.md).

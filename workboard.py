@@ -145,7 +145,15 @@ def fetch_source(url):
     value = json.loads(body)
     if not isinstance(value, dict) or not isinstance(value.get("tasks"), list):
         raise ValueError("Invalid producer snapshot")
-    return project(value)
+    result = project(value)
+    # A producer-relative preview would point at the hub's workspace instead.
+    # Keep explicit browser-facing absolute links; never reveal the source URL
+    # or guess that a remote private preview is safe to proxy through the hub.
+    for task in result["tasks"]:
+        if task.get("url", "").startswith("/"):
+            task.pop("url")
+    result["links"] = [link for link in result["links"] if not link["url"].startswith("/")]
+    return result
 
 
 class Board:
