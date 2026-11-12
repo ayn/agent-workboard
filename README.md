@@ -5,7 +5,11 @@ Claude Code, other agents, shell scripts, or a human editing JSON.
 
 **One Python file. No runtime dependencies. No account, API key, or build step.**
 
-![A fictional project on Agent Workboard](docs/demo.png)
+![Two fictional devcontainers with a coordinator and subagents](docs/demo.png)
+
+The screenshots use fictional projects and agent reports. Each devcontainer has
+its own team; the selected tab shows its coordinator and subagents, including
+examples using both Codex and Claude Code.
 
 ## Try it in a minute
 
@@ -113,7 +117,7 @@ only one workspace, the extra navigation is hidden. If a producer goes offline, 
 snapshot stays visible with an unavailable warning; the other tabs keep working.
 Use `--include-local` to include the hub's own state as a tab as well.
 
-![Fictional workspaces with an offline producer](docs/workspaces.png)
+![A second fictional devcontainer and its separate team](docs/workspaces.png)
 
 Inside containers, `127.0.0.1` means **that container**. Use reachable container
 network names, a host gateway, or published host ports in the real config. Each
