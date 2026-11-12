@@ -15,7 +15,7 @@ jobs:
         include:
           - {os: ubuntu-24.04, python: '3.11'}
           - {os: ubuntu-24.04, python: '3.14'}
-          - {os: macos-14, python: '3.14'}
+          - {os: macos-15, python: '3.14'}
           - {os: windows-2025, python: '3.14'}
     runs-on: ${{ matrix.os }}
     steps:
